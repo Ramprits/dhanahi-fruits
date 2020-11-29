@@ -1,7 +1,7 @@
 import React from "react";
 
 import Contact3 from "../components/contacts/Contact3";
-import VerticalNav4 from "../components/vertical-navs/VerticalNav4";
+import VerticalNav4 from "../components/vertical-navs/VerticalNav";
 
 export default function Contact() {
   return (

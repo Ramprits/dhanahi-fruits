@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -7,29 +6,16 @@ import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
-const useStyles = makeStyles((theme) => ({
-  tertiaryAction: {
-    [theme.breakpoints.up("sm")]: {
-      textAlign: "right",
-    },
-  },
-  actions: {
-    [theme.breakpoints.down("sm")]: {
-      marginTop: theme.spacing(3),
-    },
-  },
-}));
-
-export default function Form(props) {
-  const classes = useStyles();
-
+export default function Register(props) {
   const content = {
     brand: { image: "mui-assets/img/logo-pied-piper-icon.png", width: 40 },
-    "02_header": "Sign in",
-    "02_primary-action": "Sign in",
-    "02_secondary-action": "Don't have an account?",
-    "02_tertiary-action": "Forgot password?",
+    header: "Create a new account",
+    terms: "I agree to the terms of use and privacy policy.",
+    "01_primary-action": "Sign up",
+    "01_secondary-action": "Already have an account? Sign in",
     ...props.content,
   };
 
@@ -52,12 +38,34 @@ export default function Form(props) {
               {brand}
             </Link>
             <Typography variant="h5" component="h2">
-              {content["02_header"]}
+              {content["header"]}
             </Typography>
           </Box>
           <Box>
             <form noValidate>
               <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    autoComplete="fname"
+                    name="firstName"
+                    id="firstName"
+                    label="First name"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="lastName"
+                    id="lastName"
+                    label="Last name"
+                    autoComplete="lname"
+                  />
+                </Grid>
                 <Grid item xs={12}>
                   <TextField
                     variant="outlined"
@@ -81,6 +89,14 @@ export default function Form(props) {
                     autoComplete="current-password"
                   />
                 </Grid>
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox name="terms" value="1" color="primary" />
+                    }
+                    label={content["terms"]}
+                  />
+                </Grid>
               </Grid>
               <Box my={2}>
                 <Button
@@ -89,21 +105,14 @@ export default function Form(props) {
                   variant="contained"
                   color="primary"
                 >
-                  {content["02_primary-action"]}
+                  {content["01_primary-action"]}
                 </Button>
               </Box>
-              <Grid container spacing={2} className={classes.actions}>
-                <Grid item xs={12} sm={6}>
-                  <Link href="#" variant="body2">
-                    {content["02_secondary-action"]}
-                  </Link>
-                </Grid>
-                <Grid item xs={12} sm={6} className={classes.tertiaryAction}>
-                  <Link href="#" variant="body2">
-                    {content["02_tertiary-action"]}
-                  </Link>
-                </Grid>
-              </Grid>
+              <Box textAlign="right">
+                <Link href="#" variant="body2">
+                  {content["01_secondary-action"]}
+                </Link>
+              </Box>
             </form>
           </Box>
         </Box>

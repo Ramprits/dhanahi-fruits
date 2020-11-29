@@ -1,11 +1,10 @@
 import React from "react";
+import Register from "../components/auth/register";
 
-import SignIn1 from "../components/auth/register";
-
-export default function Register() {
+export default function RegisterPage() {
   return (
     <React.Fragment>
-      <SignIn1
+      <Register
         content={{
           brand: {
             text: "Dhanai Fruits Mart",

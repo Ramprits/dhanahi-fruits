@@ -1,7 +1,7 @@
 import React from "react";
 
 import HowItWorks2 from "../components/how-it-works/HowItWorks2";
-import VerticalNav4 from "../components/vertical-navs/VerticalNav4";
+import VerticalNav4 from "../components/vertical-navs/VerticalNav";
 
 export default function Support() {
   return (

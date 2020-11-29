@@ -1,7 +1,7 @@
 import React from "react";
 
 import HttpCode1 from "../components/http-codes/HttpCode1";
-import VerticalNav4 from "../components/vertical-navs/VerticalNav4";
+import VerticalNav4 from "../components/vertical-navs/VerticalNav";
 
 export default function NotFoundPage() {
   return (

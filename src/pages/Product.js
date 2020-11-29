@@ -1,7 +1,7 @@
 import React from "react";
 
 import Portfolio from "../components/portfolio/Portfolio1";
-import VerticalNav4 from "../components/vertical-navs/VerticalNav4";
+import VerticalNav4 from "../components/vertical-navs/VerticalNav";
 
 export default function Product() {
   return (

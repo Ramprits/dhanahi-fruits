@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import VerticalNav4 from '../components/vertical-navs/VerticalNav4';
-import Header3 from '../components/headers/Header3';
-import Team1 from '../components/team/Team1';
+import VerticalNav4 from "../components/vertical-navs/VerticalNav";
+import Header3 from "../components/headers/Header3";
+import Team1 from "../components/team/Team1";
 
 export default function Index() {
   return (
@@ -10,32 +10,32 @@ export default function Index() {
       <VerticalNav4
         content={{
           brand: {
-            text: 'Dhanai Fruits',
-            image: '/images/Dhanai_fruits-logo-white.png',
-            width: '65',
+            text: "Dhanai Fruits",
+            image: "/images/Dhanai_fruits-logo-white.png",
+            width: "65",
           },
-          'brand-small': {
-            text: 'Dni Fruits',
-            image: '/images/Dhanai_fruits-logo-white.png',
-            width: '60',
+          "brand-small": {
+            text: "Dni Fruits",
+            image: "/images/Dhanai_fruits-logo-white.png",
+            width: "60",
           },
-          link1: 'Dashboard',
-          link2: 'Product',
-          link4: 'Contact',
+          link1: "Dashboard",
+          link2: "Product",
+          link4: "Contact",
         }}
         bucketMain={[
           <Header3
             content={{
-              header: 'Fresh Fruits',
+              header: "Fresh Fruits",
               description:
                 "Get fresh fruits direct from garden.\nThe PiperNet is on it's way to revolutionize every smartphone, PC, and smart-fridge near you.",
-              image: '/images/Eli_fruits.jpg',
+              image: "/images/Eli_fruits.jpg",
             }}
           />,
 
           <Team1
             content={{
-              header: 'Our Vendors',
+              header: "Our Vendors",
             }}
           />,
         ]}
@@ -43,4 +43,3 @@ export default function Index() {
     </React.Fragment>
   );
 }
-
