@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-
+import { Link as RouterLink } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -66,7 +66,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Navigation(props) {
+  const { icon, primary, to } = props;
   const classes = useStyles();
+  const CustomLink = React.useMemo(
+    () =>
+      React.forwardRef((linkProps, ref) => (
+        <RouterLink ref={ref} to={to} {...linkProps} />
+      )),
+    [to]
+  );
 
   const content = {
     brand: { image: "mui-assets/img/logo-pied-piper-white.png", width: 120 },
@@ -165,25 +173,45 @@ export default function Navigation(props) {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
-            <ListItem button key={content["link1"]}>
+            <ListItem
+              button
+              key={content["link1"]}
+              component={CustomLink}
+              to="/"
+            >
               <ListItemIcon>
                 <AppsIcon />
               </ListItemIcon>
               <ListItemText primary={content["link1"]} />
             </ListItem>
-            <ListItem button key={content["link2"]}>
+            <ListItem
+              button
+              key={content["link2"]}
+              component={CustomLink}
+              to="/products"
+            >
               <ListItemIcon>
                 <BusinessCenterIcon />
               </ListItemIcon>
               <ListItemText primary={content["link2"]} />
             </ListItem>
-            <ListItem button key={content["link3"]}>
+            <ListItem
+              button
+              key={content["link3"]}
+              component={CustomLink}
+              to="/support"
+            >
               <ListItemIcon>
                 <LiveHelpIcon />
               </ListItemIcon>
               <ListItemText primary={content["link3"]} />
             </ListItem>
-            <ListItem button key={content["link4"]}>
+            <ListItem
+              button
+              key={content["link4"]}
+              component={CustomLink}
+              to="/contact"
+            >
               <ListItemIcon>
                 <AttachMoneyIcon />
               </ListItemIcon>
