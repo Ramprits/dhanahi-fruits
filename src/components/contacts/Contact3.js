@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     bottom: 0,
     objectFit: "cover",
-    height: 768,
+    height: 700,
     width: "100%",
   },
 }));
@@ -56,12 +56,7 @@ export default function Contact(props) {
     <section>
       <Grid container>
         <Grid item xs={12} md={6}>
-          <Box
-            pt={10}
-            pb={8}
-            display="flex"
-            className={[classes.halfLg, classes.firstBox]}
-          >
+          <Box pt={10} pb={8} display="flex">
             <Container>
               <Box mb={4}>
                 <Typography variant="h4" component="h2" gutterBottom={true}>
@@ -159,7 +154,7 @@ export default function Contact(props) {
           </Box>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Box position="relative" height={768}>
+          <Box position="relative" height={500}>
             <img
               className={classes.fullHeightImage}
               src={content["image"]}
