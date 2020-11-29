@@ -20,6 +20,7 @@ import AppsIcon from "@material-ui/icons/Apps";
 import BusinessCenterIcon from "@material-ui/icons/BusinessCenter";
 import LiveHelpIcon from "@material-ui/icons/LiveHelp";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import { Menu, MenuItem } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+  },
+  secondaryButton: {
+    marginRight: theme.spacing(2),
   },
   menuButton: {
     display: "none",
@@ -66,8 +70,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Navigation(props) {
-  const { icon, primary, to } = props;
+  const { to } = props;
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const CustomLink = React.useMemo(
     () =>
       React.forwardRef((linkProps, ref) => (
@@ -89,6 +94,14 @@ export default function Navigation(props) {
     avatar:
       "https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
     ...props.content,
+  };
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   let brand = content["brand"].text || "";
@@ -164,9 +177,26 @@ export default function Navigation(props) {
           <IconButton color="inherit">
             <NotificationsIcon />
           </IconButton>
-          <IconButton color="inherit">
+          <IconButton
+            color="inherit"
+            onClick={handleClick}
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+          >
             <Avatar alt="" src={content["avatar"]} />
           </IconButton>
+
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem onClick={handleClose}>My account</MenuItem>
+            <MenuItem onClick={handleClose}>Logout</MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
       <Drawer className={classes.drawer} variant="permanent">
