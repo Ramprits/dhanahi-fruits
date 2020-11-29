@@ -1,9 +1,9 @@
 import React from "react";
 
-import HttpCode1 from "../components/http-codes/HttpCode1";
+import Portfolio from "../components/portfolio/Portfolio1";
 import VerticalNav4 from "../components/vertical-navs/VerticalNav4";
 
-export default function NotFoundPage() {
+export default function Product() {
   return (
     <React.Fragment>
       <VerticalNav4
@@ -22,7 +22,7 @@ export default function NotFoundPage() {
           link2: "Product",
           link4: "Contact",
         }}
-        bucketMain={[<HttpCode1 content={null} />]}
+        bucketMain={[<Portfolio content={null} />]}
       />
     </React.Fragment>
   );
