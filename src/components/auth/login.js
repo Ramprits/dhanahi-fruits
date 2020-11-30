@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -8,32 +7,34 @@ import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { useForm } from "react-hook-form";
+import { Link as RouterLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { loginUser } from "../../redux/reducers/user/user.actions";
-
-const useStyles = makeStyles((theme) => ({
-  tertiaryAction: {
-    [theme.breakpoints.up("sm")]: {
-      textAlign: "right",
-    },
-  },
-  actions: {
-    [theme.breakpoints.down("sm")]: {
-      marginTop: theme.spacing(3),
-    },
-  },
-}));
+import {
+  clearLoginError,
+  loginUser,
+} from "../../redux/reducers/user/user.actions";
+import { useStyles } from "./login.style";
+import { Snackbar } from "@material-ui/core";
+import CustomSnackbar from "../error/customSnackbar";
 
 export default function Login(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.user);
+  const { loading, error } = useSelector((state) => state.loginUser);
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data) => {
     dispatch(loginUser(data));
   };
+
+  const CustomLink = React.useMemo(
+    () =>
+      React.forwardRef((linkProps, ref) => (
+        <RouterLink ref={ref} to={props.to} {...linkProps} />
+      )),
+    [props.to]
+  );
 
   const content = {
     brand: { image: "mui-assets/img/logo-pied-piper-icon.png", width: 40 },
@@ -53,10 +54,9 @@ export default function Login(props) {
   } else {
     brand = content.brand.text || "";
   }
-
-  useEffect(() => {
-    return () => {};
-  }, []);
+  const handleClose = () => {
+    dispatch(clearLoginError());
+  };
 
   return (
     <section>
@@ -112,7 +112,12 @@ export default function Login(props) {
               </Box>
               <Grid container spacing={2} className={classes.actions}>
                 <Grid item xs={12} sm={6}>
-                  <Link href="#" variant="body2">
+                  <Link
+                    href="#"
+                    variant="body2"
+                    component={CustomLink}
+                    to="/register"
+                  >
                     {content["02_secondary-action"]}
                   </Link>
                 </Grid>
@@ -125,6 +130,7 @@ export default function Login(props) {
             </form>
           </Box>
         </Box>
+        <CustomSnackbar error={error} handleClose={handleClose} />
       </Container>
     </section>
   );

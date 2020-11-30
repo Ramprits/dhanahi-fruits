@@ -1,6 +1,7 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -22,55 +23,19 @@ import LiveHelpIcon from "@material-ui/icons/LiveHelp";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import { Menu, MenuItem } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-  },
-  secondaryButton: {
-    marginRight: theme.spacing(2),
-  },
-  menuButton: {
-    display: "none",
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.down("md")]: {
-      display: "inline-flex",
-    },
-  },
-  linkBrand: {
-    flexGrow: 1,
-    [theme.breakpoints.down("xs")]: {
-      display: "none",
-    },
-  },
-  linkBrandSmall: {
-    display: "none",
-    flexGrow: 1,
-    [theme.breakpoints.down("xs")]: {
-      display: "inline-block",
-    },
-  },
-  drawer: {
-    width: 256,
-    flexShrink: 0,
-    [theme.breakpoints.down("md")]: {
-      display: "none",
-    },
-  },
-  drawerContainer: {
-    width: 256,
-    overflow: "auto",
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
-}));
+import { useStyles } from "./VerticalNav.style";
+import { logout } from "../../redux/reducers/user/user.actions";
+import history from "../../utils/history";
 
 export default function Navigation(props) {
   const { to } = props;
+  const { currentUser } = useSelector((state) => state.loginUser);
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+    history.push("/login");
+  };
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const CustomLink = React.useMemo(
@@ -177,26 +142,33 @@ export default function Navigation(props) {
           <IconButton color="inherit">
             <NotificationsIcon />
           </IconButton>
-          <IconButton
-            color="inherit"
-            onClick={handleClick}
-            aria-controls="simple-menu"
-            aria-haspopup="true"
-          >
-            <Avatar alt="" src={content["avatar"]} />
-          </IconButton>
 
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
-            <MenuItem onClick={handleClose}>Logout</MenuItem>
-          </Menu>
+          {currentUser && (
+            <>
+              <IconButton
+                color="inherit"
+                onClick={handleClick}
+                aria-controls="simple-menu"
+                aria-haspopup="true"
+              >
+                <Avatar alt="" src={content["avatar"]} />
+              </IconButton>
+
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleClose} onClick={handleLogout}>
+                  Logout
+                </MenuItem>
+              </Menu>
+            </>
+          )}
         </Toolbar>
       </AppBar>
       <Drawer className={classes.drawer} variant="permanent">

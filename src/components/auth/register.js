@@ -1,4 +1,8 @@
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -8,14 +12,30 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import {
+  clearRegisterError,
+  registerUser,
+} from "../../redux/reducers/user/user.actions";
+import CustomSnackbar from "../error/customSnackbar";
 
 export default function Register(props) {
+  const { register, handleSubmit, errors } = useForm();
+  const { loading, error } = useSelector((state) => state.registerUser);
+  const dispatch = useDispatch();
+  const onSubmit = (data) => {
+    dispatch(registerUser(data));
+  };
+
   const content = {
     brand: { image: "mui-assets/img/logo-pied-piper-icon.png", width: 40 },
     header: "Create a new account",
     terms: "I agree to the terms of use and privacy policy.",
     "01_primary-action": "Sign up",
     "01_secondary-action": "Already have an account? Sign in",
+    "01_first-name": "First Name *",
+    "01_last-name": "Last Name *",
+    "01_email": "Email Address *",
+    "01_password": "Password *",
     ...props.content,
   };
 
@@ -28,6 +48,18 @@ export default function Register(props) {
   } else {
     brand = content.brand.text || "";
   }
+
+  const CustomLink = React.useMemo(
+    () =>
+      React.forwardRef((linkProps, ref) => (
+        <RouterLink ref={ref} to={props.to} {...linkProps} />
+      )),
+    [props.to]
+  );
+
+  const handleClose = () => {
+    dispatch(clearRegisterError());
+  };
 
   return (
     <section>
@@ -42,51 +74,52 @@ export default function Register(props) {
             </Typography>
           </Box>
           <Box>
-            <form noValidate>
+            <form noValidate onSubmit={handleSubmit(onSubmit)}>
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     variant="outlined"
-                    required
                     fullWidth
-                    autoComplete="fname"
-                    name="firstName"
-                    id="firstName"
-                    label="First name"
+                    autoComplete="first_name"
+                    error={!!errors.first_name}
+                    name="first_name"
+                    inputRef={register({ required: true })}
+                    label={content["01_first-name"]}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     variant="outlined"
-                    required
                     fullWidth
-                    name="lastName"
-                    id="lastName"
-                    label="Last name"
-                    autoComplete="lname"
+                    error={!!errors.last_name}
+                    name="last_name"
+                    inputRef={register({ required: true })}
+                    label={content["01_last-name"]}
+                    autoComplete="last_name"
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
                     variant="outlined"
-                    required
                     fullWidth
+                    type="email"
+                    error={!!errors.email}
                     name="email"
-                    id="email"
-                    label="Email address"
+                    inputRef={register({ required: true })}
+                    label={content["01_email"]}
                     autoComplete="email"
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
                     variant="outlined"
-                    required
                     fullWidth
+                    error={!!errors.password}
                     name="password"
-                    id="password"
-                    label="Password"
+                    inputRef={register({ required: true })}
+                    label={content["01_password"]}
                     type="password"
-                    autoComplete="current-password"
+                    autoComplete="password"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -104,18 +137,20 @@ export default function Register(props) {
                   fullWidth
                   variant="contained"
                   color="primary"
+                  disabled={loading}
                 >
                   {content["01_primary-action"]}
                 </Button>
               </Box>
               <Box textAlign="right">
-                <Link href="#" variant="body2">
+                <Link component={CustomLink} to="/login" variant="body2">
                   {content["01_secondary-action"]}
                 </Link>
               </Box>
             </form>
           </Box>
         </Box>
+        <CustomSnackbar error={error} handleClose={handleClose} />
       </Container>
     </section>
   );

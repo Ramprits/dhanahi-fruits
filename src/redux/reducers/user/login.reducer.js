@@ -1,4 +1,10 @@
-import { LOGIN_FAILED, LOGIN_REQUEST, LOGIN_SUCCESS } from "./user.types";
+import {
+  CLEAR_ERROR_MESSAGE,
+  LOGIN_FAILED,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  USER_LOGOUT,
+} from "./user.types";
 
 const initialStateLogin = {
   currentUser: undefined,
@@ -6,10 +12,13 @@ const initialStateLogin = {
   error: "",
 };
 
-export const loginReducer = (state = initialStateLogin, { type, payload }) => {
+export default (state = initialStateLogin, { type, payload }) => {
   switch (type) {
     case LOGIN_REQUEST:
       return { ...state, loading: true, error: "", currentUser: undefined };
+
+    case CLEAR_ERROR_MESSAGE:
+      return { ...state, loading: false, error: "", currentUser: undefined };
 
     case LOGIN_SUCCESS:
       return {
@@ -18,6 +27,10 @@ export const loginReducer = (state = initialStateLogin, { type, payload }) => {
         error: "",
         currentUser: payload,
       };
+
+    case USER_LOGOUT:
+      return { ...state, error: "", currentUser: undefined };
+
     case LOGIN_FAILED:
       return {
         ...state,
