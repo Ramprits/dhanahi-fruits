@@ -9,7 +9,6 @@ import theme from "./theme/theme";
 import { persistor, store } from "./redux/store";
 
 const rootElement = document.querySelector("#root");
-
 ReactDOM.render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>

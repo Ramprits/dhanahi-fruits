@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -7,6 +7,10 @@ import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+
+import { loginUser } from "../../redux/reducers/user/user.actions";
 
 const useStyles = makeStyles((theme) => ({
   tertiaryAction: {
@@ -23,6 +27,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login(props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.user);
+  const { register, handleSubmit, errors } = useForm();
+
+  const onSubmit = (data) => {
+    dispatch(loginUser(data));
+  };
 
   const content = {
     brand: { image: "mui-assets/img/logo-pied-piper-icon.png", width: 40 },
@@ -43,6 +54,10 @@ export default function Login(props) {
     brand = content.brand.text || "";
   }
 
+  useEffect(() => {
+    return () => {};
+  }, []);
+
   return (
     <section>
       <Container maxWidth="xs">
@@ -56,15 +71,16 @@ export default function Login(props) {
             </Typography>
           </Box>
           <Box>
-            <form noValidate>
+            <form noValidate onSubmit={handleSubmit(onSubmit)}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
                     variant="outlined"
+                    error={!!errors.identifier}
                     required
                     fullWidth
-                    name="email"
-                    id="email"
+                    name="identifier"
+                    inputRef={register({ required: true })}
                     label="Email address"
                     autoComplete="email"
                   />
@@ -72,10 +88,12 @@ export default function Login(props) {
                 <Grid item xs={12}>
                   <TextField
                     variant="outlined"
+                    error={!!errors.password}
                     required
                     fullWidth
                     name="password"
                     id="password"
+                    inputRef={register({ required: true })}
                     label="Password"
                     type="password"
                     autoComplete="current-password"

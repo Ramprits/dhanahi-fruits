@@ -1,40 +1,35 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React, { lazy, Suspense } from "react";
+import { Router, Switch, Route } from "react-router-dom";
+import PrivateRoute from "./components/privateRoute/privateRoute";
+import PublicRoute from "./components/privateRoute/publicRoute";
+import history from "./utils/history";
 
-import IndexPage from "./pages/Index.js";
-import LoginPage from "./pages/Login.js";
-import RegisterPage from "./pages/Register.js";
-import ContactPage from "./pages/Contact.js";
-import Product from "./pages/Product.js";
-import Support from "./pages/Support.js";
-import NotFoundPage from "./pages/404.js";
+const IndexPage = lazy(() => import("./pages/Index.js"));
+const LoginPage = lazy(() => import("./pages/Login.js"));
+const RegisterPage = lazy(() => import("./pages/Register.js"));
+const ContactPage = lazy(() => import("./pages/Contact.js"));
+const Product = lazy(() => import("./pages/Product.js"));
+const Support = lazy(() => import("./pages/Support.js"));
+const NotFoundPage = lazy(() => import("./pages/404.js"));
 
-export default function App() {
+const App = () => {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <IndexPage />
-        </Route>
-        <Route exact path="/login">
-          <LoginPage />
-        </Route>
-        <Route exact path="/register">
-          <RegisterPage />
-        </Route>
-        <Route exact path="/support">
-          <Support />
-        </Route>
-        <Route exact path="/products">
-          <Product />
-        </Route>
-        <Route exact path="/contact">
-          <ContactPage />
-        </Route>
-        <Route>
-          <NotFoundPage />
-        </Route>
-      </Switch>
+    <Router history={history}>
+      <Suspense fallback={<div>Please wait while loading...</div>}>
+        <Switch>
+          <PrivateRoute exact path="/" component={IndexPage}></PrivateRoute>
+          <Route path="/support" component={Support}></Route>
+          <Route path="/products" component={Product}></Route>
+          <Route path="/contact" component={ContactPage}></Route>
+          <PublicRoute path="/login" component={LoginPage}></PublicRoute>
+          <PublicRoute path="/register" component={RegisterPage}></PublicRoute>
+          <Route>
+            <NotFoundPage />
+          </Route>
+        </Switch>
+      </Suspense>
     </Router>
   );
-}
+};
+
+export default App;
