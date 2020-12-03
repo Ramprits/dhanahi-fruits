@@ -15,7 +15,20 @@ const NotFoundPage = lazy(() => import("./pages/404.js"));
 const App = () => {
   return (
     <Router history={history}>
-      <Suspense fallback={<div>Please wait while loading...</div>}>
+      <Suspense
+        fallback={
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "20rem",
+            }}
+          >
+            Please wait while loading...
+          </div>
+        }
+      >
         <Switch>
           <PrivateRoute exact path="/" component={IndexPage}></PrivateRoute>
           <Route path="/support" component={Support}></Route>

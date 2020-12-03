@@ -39,16 +39,6 @@ export default function Portfolio(props) {
   return (
     <section>
       <Box pt={8} pb={10}>
-        <Container maxWidth="sm">
-          <Box textAlign="center" mb={5}>
-            <Typography variant="h4" component="h2" gutterBottom={true}>
-              {content["header"]}
-            </Typography>
-            <Typography variant="subtitle1" color="textSecondary">
-              {content["description"]}
-            </Typography>
-          </Box>
-        </Container>
         <Container maxWidth="md">
           <Box textAlign="center">
             <Grid container spacing={4}>

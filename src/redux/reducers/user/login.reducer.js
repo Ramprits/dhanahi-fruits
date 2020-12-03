@@ -12,7 +12,7 @@ const initialStateLogin = {
   error: "",
 };
 
-export default (state = initialStateLogin, { type, payload }) => {
+const loginReducer = (state = initialStateLogin, { type, payload }) => {
   switch (type) {
     case LOGIN_REQUEST:
       return { ...state, loading: true, error: "", currentUser: undefined };
@@ -43,3 +43,4 @@ export default (state = initialStateLogin, { type, payload }) => {
       return state;
   }
 };
+export default loginReducer;

@@ -29,7 +29,7 @@ import history from "../../utils/history";
 
 export default function Navigation(props) {
   const { to } = props;
-  const { currentUser } = useSelector((state) => state.loginUser);
+  const { currentUser } = useSelector((state) => state.currentUser);
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout());
@@ -119,16 +119,18 @@ export default function Navigation(props) {
             <MenuIcon />
           </IconButton>
           <Link
-            href="#"
             variant="h5"
             color="inherit"
             underline="none"
+            component={CustomLink}
+            to="/"
             className={classes.linkBrand}
           >
             {brand}
           </Link>
           <Link
-            href="#"
+            component={CustomLink}
+            to="/"
             variant="h5"
             color="inherit"
             underline="none"
@@ -225,25 +227,45 @@ export default function Navigation(props) {
       <Drawer anchor="left" open={state.open} onClose={toggleDrawer(false)}>
         <div className={classes.drawerContainer}>
           <List>
-            <ListItem button key={content["link1"]}>
+            <ListItem
+              button
+              key={content["link1"]}
+              component={CustomLink}
+              to="/"
+            >
               <ListItemIcon>
                 <AppsIcon />
               </ListItemIcon>
               <ListItemText primary={content["link1"]} />
             </ListItem>
-            <ListItem button key={content["link2"]}>
+            <ListItem
+              button
+              key={content["link2"]}
+              component={CustomLink}
+              to="/products"
+            >
               <ListItemIcon>
                 <BusinessCenterIcon />
               </ListItemIcon>
               <ListItemText primary={content["link2"]} />
             </ListItem>
-            <ListItem button key={content["link3"]}>
+            <ListItem
+              button
+              key={content["link3"]}
+              component={CustomLink}
+              to="/support"
+            >
               <ListItemIcon>
                 <LiveHelpIcon />
               </ListItemIcon>
               <ListItemText primary={content["link3"]} />
             </ListItem>
-            <ListItem button key={content["link4"]}>
+            <ListItem
+              button
+              key={content["link4"]}
+              component={CustomLink}
+              to="/contact"
+            >
               <ListItemIcon>
                 <AttachMoneyIcon />
               </ListItemIcon>
@@ -254,11 +276,9 @@ export default function Navigation(props) {
       </Drawer>
       <main className={classes.content}>
         <Toolbar />
-        <div>
-          {buckets["main"].map((component, index) => (
-            <React.Fragment key={index}>{component}</React.Fragment>
-          ))}
-        </div>
+        {buckets["main"].map((component, index) => (
+          <React.Fragment key={index}>{component}</React.Fragment>
+        ))}
       </main>
     </div>
   );
