@@ -18,9 +18,9 @@ const App = () => {
       <Suspense fallback={<div>Please wait while loading...</div>}>
         <Switch>
           <PrivateRoute exact path="/" component={IndexPage}></PrivateRoute>
-          <Route path="/support" component={Support}></Route>
-          <Route path="/products" component={Product}></Route>
-          <Route path="/contact" component={ContactPage}></Route>
+          <PrivateRoute path="/support" component={Support}></PrivateRoute>
+          <PrivateRoute path="/products" component={Product}></PrivateRoute>
+          <PrivateRoute path="/contact" component={ContactPage}></PrivateRoute>
           <PublicRoute path="/login" component={LoginPage}></PublicRoute>
           <PublicRoute path="/register" component={RegisterPage}></PublicRoute>
           <Route>

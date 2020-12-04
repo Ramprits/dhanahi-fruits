@@ -38,51 +38,67 @@ export default function Portfolio(props) {
 
   return (
     <section>
-      <Box pt={8} pb={10}>
-        <Container maxWidth="sm">
-          <Box textAlign="center" mb={5}>
-            <Typography variant="h4" component="h2" gutterBottom={true}>
-              {content["header"]}
-            </Typography>
-            <Typography variant="subtitle1" color="textSecondary">
-              {content["description"]}
-            </Typography>
-          </Box>
-        </Container>
-        <Container maxWidth="md">
-          <Box textAlign="center">
-            <Grid container spacing={4}>
-              <Grid item xs={12} md={6}>
-                <Card>
-                  <CardActionArea href="#">
-                    <CardMedia
-                      className={classes.media}
-                      image={content["01_image"]}
-                    />
-                    <CardHeader
-                      title={content["01_company"]}
-                      subheader={content["01_description"]}
-                      titleTypographyProps={{ gutterBottom: true }}
-                    />
-                  </CardActionArea>
-                </Card>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Card>
+      <Box pt={2} pb={2}>
+        <Box textAlign="center">
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={4}>
+              <Card style={{ height: "100%" }}>
+                <CardActionArea href="#">
                   <CardMedia
                     className={classes.media}
-                    image={content["02_image"]}
+                    image={content["01_image"]}
                   />
                   <CardHeader
-                    title={content["02_company"]}
-                    subheader={content["02_description"]}
+                    title={content["01_company"]}
+                    subheader={content["01_description"]}
                     titleTypographyProps={{ gutterBottom: true }}
                   />
-                </Card>
-              </Grid>
+                </CardActionArea>
+              </Card>
             </Grid>
-          </Box>
-        </Container>
+            <Grid item xs={12} md={4}>
+              <Card style={{ height: "100%" }}>
+                <CardMedia
+                  className={classes.media}
+                  image={content["02_image"]}
+                />
+                <CardHeader
+                  title={content["02_company"]}
+                  subheader={content["02_description"]}
+                  titleTypographyProps={{ gutterBottom: true }}
+                />
+              </Card>
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+              <Card style={{ height: "100%" }}>
+                <CardMedia
+                  className={classes.media}
+                  image={content["02_image"]}
+                />
+                <CardHeader
+                  title={content["02_company"]}
+                  subheader={content["02_description"]}
+                  titleTypographyProps={{ gutterBottom: true }}
+                />
+              </Card>
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <Card style={{ height: "100%" }}>
+                <CardMedia
+                  className={classes.media}
+                  image={content["02_image"]}
+                />
+                <CardHeader
+                  title={content["02_company"]}
+                  subheader={content["02_description"]}
+                  titleTypographyProps={{ gutterBottom: true }}
+                />
+              </Card>
+            </Grid>
+          </Grid>
+        </Box>
       </Box>
     </section>
   );
