@@ -26,7 +26,7 @@ export const productError = (payload) => ({
 export const fetchProducts = () => async (dispatch) => {
   try {
     dispatch(productRequest());
-    const { data } = await axios.get("/products");
+    const { data } = await axios.get(`${process.env.REACT_APP_API}/products`);
     dispatch(productSuccess(data));
   } catch (error) {
     dispatch(productError(error.message));

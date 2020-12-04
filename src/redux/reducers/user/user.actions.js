@@ -60,13 +60,16 @@ export const clearLoginError = () => ({
 export const registerUser = (userData) => async (dispatch) => {
   try {
     dispatch(registerRequest());
-    const { data } = await axios.post("/auth/local/register", {
-      first_name: userData.first_name,
-      last_name: userData.last_name,
-      username: userData.first_name.toLowerCase(),
-      email: userData.email,
-      password: userData.password,
-    });
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_API}/auth/local/register`,
+      {
+        first_name: userData.first_name,
+        last_name: userData.last_name,
+        username: userData.first_name.toLowerCase(),
+        email: userData.email,
+        password: userData.password,
+      }
+    );
     dispatch(registerSuccess(data));
     history.push("/");
   } catch (error) {
@@ -78,10 +81,13 @@ export const registerUser = (userData) => async (dispatch) => {
 export const loginUser = (userData) => async (dispatch) => {
   try {
     dispatch(loginRequest());
-    const { data } = await axios.post("/auth/local", {
-      identifier: userData.identifier.toLowerCase(),
-      password: userData.password,
-    });
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_API}/auth/local`,
+      {
+        identifier: userData.identifier.toLowerCase(),
+        password: userData.password,
+      }
+    );
     dispatch(loginSuccess(data));
     history.push("/");
   } catch (error) {
