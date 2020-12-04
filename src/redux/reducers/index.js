@@ -8,12 +8,12 @@ import registerReducer from "./user/register.reducer";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["loginUser"],
+  whitelist: ["currentUser"],
 };
 
 const rootReducer = combineReducers({
-  loginUser: loginReducer,
-  registerUser: registerReducer,
+  currentUser: loginReducer,
+  user: registerReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

@@ -15,13 +15,12 @@ import {
   loginUser,
 } from "../../redux/reducers/user/user.actions";
 import { useStyles } from "./login.style";
-import { Snackbar } from "@material-ui/core";
 import CustomSnackbar from "../error/customSnackbar";
 
 export default function Login(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.loginUser);
+  const { error } = useSelector((state) => state.currentUser);
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data) => {
