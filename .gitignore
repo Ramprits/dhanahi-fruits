@@ -2,3 +2,6 @@ node_modules
 build
 .eslintcache
 .env
+# Local Netlify folder
+.netlify
+.eslintcache
